@@ -11,6 +11,8 @@ from flask_sqlalchemy import *
 app = Flask(__name__)
 #app.config["SQLALCHEMY_DATABASE_URI"] = database_file
 app.config["SQLALCHEMY_DATABASE_URI"] ='mysql://dt_admin:abc123@127.0.0.1/dreamteam_db'
+# or
+# app.config["SQLALCHEMY_DATABASE_URI"] ='mysql://root:abc123@127.0.0.1/dreamteam_db'
 
 db = SQLAlchemy(app)
 
