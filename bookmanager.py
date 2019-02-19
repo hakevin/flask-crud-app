@@ -1,4 +1,5 @@
-import os
+import pymysql
+pymysql.install_as_MySQLdb()
 
 from flask import *
 
@@ -13,22 +14,11 @@ app.config["SQLALCHEMY_DATABASE_URI"] ='mysql://dt_admin:abc123@127.0.0.1/dreamt
 
 db = SQLAlchemy(app)
 
-
 class Book(db.Model):
     title = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
 
     def __repr__(self):
         return "<Title: {}>".format(self.title)
-
-
-@app.route("/delete", methods=["POST"])
-def delete():
-    title = request.form.get("title")
-    book = Book.query.filter_by(title=title).first()
-    db.session.delete(book)
-    db.session.commit()
-    return redirect("/")
-
 
 @app.route('/', methods=["GET", "POST"])
 def home():
@@ -44,7 +34,6 @@ def home():
     books = Book.query.all()
     return render_template("home.html", books=books)
 
-
 @app.route("/update", methods=["POST"])
 def update():
     try:
@@ -58,11 +47,14 @@ def update():
         print(e)
     return redirect("/")
 
+@app.route("/delete", methods=["POST"])
+def delete():
+    title = request.form.get("title")
+    book = Book.query.filter_by(title=title).first()
+    db.session.delete(book)
+    db.session.commit()
+    return redirect("/")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-#create table book (
-#    -> title string(80)
-#    -> );
