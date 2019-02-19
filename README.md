@@ -4,4 +4,14 @@
 
 This is the code for the tutorial hosted at [Codementor](https://www.codementor.io/garethdwyer/building-a-crud-application-with-flask-and-sqlalchemy-dm3wv7yu2).
 
+In MariaDB
+
+1. 
+
+create database ______
+
+2. 
+create table book (
+    -> title string(80)
+    -> );
 
